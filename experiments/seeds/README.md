@@ -1,3 +1,0 @@
-# seeds
-
-Frozen seed sets.

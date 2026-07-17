@@ -1,3 +1,0 @@
-# telemetry
-
-Target telemetry.

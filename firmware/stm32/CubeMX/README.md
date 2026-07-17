@@ -1,3 +1,0 @@
-# CubeMX
-
-CubeMX project.

@@ -1,3 +1,0 @@
-# controllers
-
-Controller configurations.

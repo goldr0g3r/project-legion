@@ -1,3 +1,0 @@
-# schemas
-
-Configuration schemas.

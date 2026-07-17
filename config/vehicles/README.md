@@ -1,3 +1,0 @@
-# vehicles
-
-Vehicle parameter sets.

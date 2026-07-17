@@ -50,3 +50,27 @@ Can bounded residual reinforcement learning improve station-keeping accuracy or 
 - Gate 3: PIL numerical equivalence passes before HIL.
 - Gate 4: If residual RL does not improve a preregistered metric by the end of M4, retain PID or evaluate RL gain scheduling.
 - Gate 5: Final experiment configurations and seeds are frozen before final evaluation.
+
+<!-- AUDIT-FIX: -->
+## Audit reconciliation: hypotheses and measurable gates
+
+`config/system_limits.yaml` is the authoritative source for provisional numeric limits.
+
+### Primary hypothesis
+
+Bounded residual PPO reduces held-out position RMSE relative to the same PID baseline without exceeding the configured failure-rate non-inferiority margin.
+
+### Required ablation
+
+The domain-randomization hypothesis is evaluated using two matched residual-PPO arms: one with domain randomization and one without it. Architecture, reward, training budget, and checkpoint-selection procedure remain identical.
+
+The earlier direct-host-thruster comparison is an optional systems-engineering study rather than a primary dissertation hypothesis.
+
+### Gates
+
+1. Plant sign, equilibrium, decay, and step-size verification pass.
+2. PID meets `config/system_limits.yaml` tolerances.
+3. PIL equivalence and target timing pass.
+4. DR and no-DR policies are frozen before final evaluation.
+5. Final configurations, seeds, and analysis scripts are frozen before final runs.
+<!-- AUDIT-FIX: -->

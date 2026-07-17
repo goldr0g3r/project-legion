@@ -1,3 +1,0 @@
-# experiments
-
-Experiment presets.

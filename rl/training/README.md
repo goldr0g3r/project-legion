@@ -1,3 +1,0 @@
-# training
-
-Training entry points.

@@ -1,3 +1,0 @@
-# pil
-
-PIL harnesses.

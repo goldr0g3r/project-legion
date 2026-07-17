@@ -81,3 +81,43 @@ flowchart LR
 4. Every message includes units, frame, timestamp, and validity.
 5. Experiments are configuration-driven and replayable.
 6. Safety limits are enforced after RL and before actuation.
+
+<!-- AUDIT-FIX: -->
+## Canonical corrected feedback architecture
+
+The following diagram supersedes any earlier diagram only where the edges conflict. Existing explanatory content remains valid unless explicitly contradicted below.
+
+```mermaid
+flowchart LR
+    MM[Mission and experiment manager]
+    CG[Current generator]
+    MP[Mother plant] --> MS[Mother state]
+    MS --> MC[Mother PID]
+    MM --> MC
+    MC --> MP
+    CG --> MP
+    CG --> DP[Daughter plant]
+    DP --> DS[Daughter sensor emulator and estimator]
+    MS --> REL[Mother-relative state calculator]
+    DS --> REL
+    REL --> RL[Bounded residual PPO]
+    DS --> RL
+    MS --> RL
+    DS --> SB[ROS 2 serial bridge]
+    RL --> SB
+    SB <--> MCU[STM32 PID, arbitration, safety, allocation]
+    MCU --> SB
+    SB --> DP
+    SS[Safety supervisor] --> MC
+    SS --> RL
+    SS --> SB
+    MP --> LOG[Logger and metrics]
+    DP --> LOG
+    RL --> LOG
+    MCU --> LOG
+```
+
+The mother may use exact simulated state in Version 1; the daughter uses sensor-emulated or estimated state. This asymmetry is a documented limitation.
+
+Initial rates are loaded from `config/system_limits.yaml`. Daughter PID and state transport both begin at 100 Hz to avoid multirate derivative chatter. Plant integration runs faster and RL inference runs slower with zero-order hold.
+<!-- AUDIT-FIX: -->

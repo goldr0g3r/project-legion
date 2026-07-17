@@ -1,0 +1,3 @@
+# figures
+
+Generated figures.

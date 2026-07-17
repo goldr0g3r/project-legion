@@ -60,3 +60,13 @@
 - ROS-facing conversion is explicit and tested.
 - Every stored result records the frame convention.
 - No component infers frame or units from the variable name alone.
+
+<!-- AUDIT-FIX: -->
+## Audit reconciliation: control services, QoS, and time
+
+Required services include `/daughter/arm`, `/daughter/disarm`, `/safety/emergency_stop`, `/safety/reset_fault`, `/experiment/select_controller_mode`, and fault-injection configure, enable, and disable operations.
+
+Safety, configuration, controller-mode, and experiment events use reliable QoS. High-rate state and disposable residual streams use best effort with small depth plus timestamp and sequence validation. Low-rate targets use reliable depth 1 with explicit expiry.
+
+`/clock` is enabled only in simulation-time modes. HIL uses monotonic wall time as specified in `docs/architecture/TIME_POLICY.md`.
+<!-- AUDIT-FIX: -->

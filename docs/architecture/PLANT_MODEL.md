@@ -60,3 +60,17 @@ Allocation should minimize wrench error and control effort subject to individual
 - Static-current equilibrium
 - Step-size sensitivity
 - Simulink versus Python comparison if both are retained
+
+<!-- AUDIT-FIX: -->
+## Audit reconciliation: thruster degradation and model authority
+
+The plant shall support thruster degradation and failure injection:
+
+```text
+f_actual[i] = efficiency[i] * f_command[i]
+```
+
+Efficiency `1.0` is nominal, values between `0` and `1` represent degradation, and `0` represents failure. This enables the degraded-thruster experiment arm.
+
+ADR-0004 must select one authoritative plant implementation. Any second MATLAB, Simulink, or Python implementation is a numerical cross-check and must pass equivalence tests.
+<!-- AUDIT-FIX: -->
